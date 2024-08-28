@@ -230,23 +230,23 @@
       <div id="contact" class="contact">
          <div class="container">
             <div class="row">
-               <div class="col-md-6 offset-md-3 ">
-                  <form class="main_form">
+               <div class="col-md-6 offset-md-3">
+                  <form class="main_form" id="contactForm">
                      <div class="row">
                         <div class="col-sm-12">
-                           <input class="contactus" placeholder="Nome" type="text" name="Name">
+                           <input class="contactus" placeholder="Nome" type="text" name="Name" id="name">
                         </div>
                         <div class="col-sm-12">
-                           <input class="contactus" placeholder="Email" type="text" name=" Email">
+                           <input class="contactus" placeholder="Email" type="text" name="Email" id="email">
                         </div>
                         <div class="col-sm-12">
-                           <input class="contactus" placeholder="Telefone" type="text" name="Phone">
+                           <input class="contactus" placeholder="Telefone" type="text" name="Phone" id="phone">
                         </div>
                         <div class="col-sm-12">
-                           <textarea class="textarea" placeholder="Mensagem" type="text" name="Message"></textarea>
+                           <textarea class="textarea" placeholder="Mensagem" name="Message" id="message"></textarea>
                         </div>
                         <div class="col-sm-12">
-                           <button class="send">Enviar</button>
+                           <button class="send" type="submit">Enviar</button>
                         </div>
                      </div>
                   </form>
@@ -294,6 +294,55 @@
       <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
       <script src="js/custom.js"></script>
       <script src="https:cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
+      <script>
+         document.getElementById('contactForm').addEventListener('submit', function(event) {
+      // Evita o envio padrão do formulário
+      event.preventDefault();
+
+      // Coleta os valores dos campos
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const message = document.getElementById('message').value.trim();
+
+      // Validação simples
+      if (name === '') {
+         alert('Por favor, preencha o campo Nome.');
+         return;
+      }
+
+      if (email === '' || !validateEmail(email)) {
+         alert('Por favor, preencha um Email válido.');
+         return;
+      }
+
+      if (phone === '' || !validatePhone(phone)) {
+         alert('Por favor, preencha um Telefone válido.');
+         return;
+      }
+
+      if (message === '') {
+         alert('Por favor, preencha o campo Mensagem.');
+         return;
+      }
+
+      // Se todas as validações passarem, o formulário pode ser enviado
+      alert('Formulário enviado com sucesso!');
+      this.submit();
+   });
+
+   function validateEmail(email) {
+      // Expressão regular simples para validar email
+      const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return re.test(email);
+   }
+
+   function validatePhone(phone) {
+      // Expressão regular simples para validar telefone (apenas números)
+      const re = /^\d+$/;
+      return re.test(phone);
+   }
+      </script>
    </body>
 </html>
 
